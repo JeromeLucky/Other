@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false" package="com.jerome.hibernate.user.entity">
+
+	<class
+		name="User"
+		table="User_table">
+
+	   <id name="id" > <!-- 类型叫它自动检测   id 标签标示主键 -->
+			<generator class="native"></generator><!-- 数据库 的 策略  可以操作 mysql oracle  和 db2 -->
+      </id>
+		<property name="name" type="string"></property>
+		<property name="age" type="integer"></property>
+		
+		<!-- 多对一其中class表示属性对应的类,即对应Grade实体类 -->
+		<!-- 	 <many-to-one name="gradeid" class="Grade" not-null="true"/> -->
+	 <!-- set标签是Grade类中的Set集合属性,而name是属性名 -->
+	   <!--  <set name="students">
+        					key表示外键,column表示Student表中的外键列名
+	       					 <key column="gradeid" not-null="true"/>
+	      					  one-to-many 一对多,类Gread中students表示对应的多个学生
+	        				<one-to-many class="Student"/>
+    </set> -->	
+	</class>
+
+
+</hibernate-mapping>
+

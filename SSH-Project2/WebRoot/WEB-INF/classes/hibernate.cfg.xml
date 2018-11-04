@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+<!-- Database connection settings -->
+ 
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property><!-- 所有方言都是类名 开头数据库开头以dialect结尾 mysql*dialect             打开类型 open type 快捷键 ctrl+shift+T -->
+       <!--获取当前session并开启事务  hibernate3 -->
+       <!--  <property name="current_session_context_class">thread</property> -->
+      <!--   <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>  -->
+	
+		<!--其他配置  自动建表 显示二级缓存 显示sql语句  为可有可无部分 -->
+
+	  	 <property name="show_sql">true</property>
+	  	 <property name="hbm2ddl.auto">update</property><!-- create-drop 创建后删除 create 启动时删除  update    validate 会检验但不会更新 -->
+	
+		<mapping resource="com/jerome/ssh/user/hbm/User.hbm.xml" />
+
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<!-- <script type="text/javascript" src="../../js/Prototype151.js"></script> -->
+<script type="text/javascript" src="../../js/jquery-3.2.0.js"></script>
+
+
+<script>
+
+		
+		function  aa(){
+				var value=$("#user").val;
+					alert(value);
+			}
+				
+		jQuery(document).ready();
+		
+			$(function  aa(){
+						var value=$("#user").val;
+						alert(value);
+			});
+				
+
+</script>
+</head>
+<body>
+			<div>
+						<div class="one"> 
+							用户名		<input type="text" id="user" name="user" onblur="aa()"/>
+						</div>
+						<div class="two">
+							年龄	<input type="number" id="age" name="age"/>
+							<button id="but" onclick="aa()">点击</button>
+						 </div>
+			</div>
+</body>
+</html>

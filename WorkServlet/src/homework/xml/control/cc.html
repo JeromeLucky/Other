@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GBK"?>
+<web-app>
+    <display-name>project3</display-name>
+    <welcome-file-list>
+        <welcome-file>one.jsp</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>aafilter</filter-name>
+        <filter-class>com.bwf.jia.AAfilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>aafilter</filter-name>
+        <url-pattern>/aa/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>aafilter</servlet-name>
+        <servlet-class>com.bwf.jia.AAfilter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>aafilter</servlet-name>
+        <servlet-pattern>/aa/bb</servlet-pattern>
+    </servlet-mapping>
+    <listener>
+        <listener-class>com.bwf.jia.AAlistener</listener-class>
+    </listener>
+</web-app>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" /><!-- 开发者模式  立即生效不用重启-->
+	<constant name="struts.action.extension" value="action" /><!--  配置扩展名为.action 方便过滤器 使用，key的来源 struct2 的jar包里  default.properties中 action,,对用的key-->
+    <constant name="struts.ui.theme" value="simple" /><!-- 自定义xhml 样式为默认 降低美工难度 -->
+    <!--配置资源文件1.类型转换输出信息2.国际化默认文件格式配置3.上传文件提示信息配置  -->
+  	<!-- <constant name="struts.custom.i18n.resources" 
+  	value="com/jerome/struts/manager/action/converter,
+  					com/jerome/struts/i18n/action/resources,
+  					com/jerome/struts/common/upload/uploadmessages">
+  </constant> -->
+   <constant name="struts.multipart.maxSize" value="2000000000"></constant>
+  			 <!-- Spring 代理对象注入 -->
+   <!-- <constant name="struts.objectFactory" value="spring" /> -->
+  <!-- 引入定义struts.xml文件 -->
+  
+  
+  <include file="com/jerome/ssh/user/action/user-struts.xml"></include> 
+    
+</struts>

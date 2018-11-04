@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tds.manager.mapper.FlightMapper" >
+  <resultMap id="BaseResultMap" type="com.tds.manager.pojo.Flight" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="totle_seats" property="totleSeats" jdbcType="INTEGER" />
+    <result column="leave_city" property="leaveCity" jdbcType="VARCHAR" />
+    <result column="arrival_city" property="arrivalCity" jdbcType="VARCHAR" />
+    <result column="economy_price" property="economyPrice" jdbcType="DOUBLE" />
+    <result column="first_price" property="firstPrice" jdbcType="DOUBLE" />
+    <result column="leave_time" property="leaveTime" jdbcType="VARCHAR" />
+    <result column="arrival_time" property="arrivalTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, num, company, model, totle_seats, leave_city, arrival_city, economy_price, first_price, 
+    leave_time, arrival_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tds.manager.pojo.FlightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from flight
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flight
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tds.manager.pojo.FlightExample" >
+    delete from flight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tds.manager.pojo.Flight" >
+    insert into flight (id, num, company, 
+      model, totle_seats, leave_city, 
+      arrival_city, economy_price, first_price, 
+      leave_time, arrival_time)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{totleSeats,jdbcType=INTEGER}, #{leaveCity,jdbcType=VARCHAR}, 
+      #{arrivalCity,jdbcType=VARCHAR}, #{economyPrice,jdbcType=DOUBLE}, #{firstPrice,jdbcType=DOUBLE}, 
+      #{leaveTime,jdbcType=VARCHAR}, #{arrivalTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tds.manager.pojo.Flight" >
+    insert into flight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="totleSeats != null" >
+        totle_seats,
+      </if>
+      <if test="leaveCity != null" >
+        leave_city,
+      </if>
+      <if test="arrivalCity != null" >
+        arrival_city,
+      </if>
+      <if test="economyPrice != null" >
+        economy_price,
+      </if>
+      <if test="firstPrice != null" >
+        first_price,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="totleSeats != null" >
+        #{totleSeats,jdbcType=INTEGER},
+      </if>
+      <if test="leaveCity != null" >
+        #{leaveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalCity != null" >
+        #{arrivalCity,jdbcType=VARCHAR},
+      </if>
+      <if test="economyPrice != null" >
+        #{economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstPrice != null" >
+        #{firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tds.manager.pojo.FlightExample" resultType="java.lang.Integer" >
+    select count(*) from flight
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flight
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null" >
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totleSeats != null" >
+        totle_seats = #{record.totleSeats,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveCity != null" >
+        leave_city = #{record.leaveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivalCity != null" >
+        arrival_city = #{record.arrivalCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyPrice != null" >
+        economy_price = #{record.economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstPrice != null" >
+        first_price = #{record.firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.leaveTime != null" >
+        leave_time = #{record.leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivalTime != null" >
+        arrival_time = #{record.arrivalTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flight
+    set id = #{record.id,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      totle_seats = #{record.totleSeats,jdbcType=INTEGER},
+      leave_city = #{record.leaveCity,jdbcType=VARCHAR},
+      arrival_city = #{record.arrivalCity,jdbcType=VARCHAR},
+      economy_price = #{record.economyPrice,jdbcType=DOUBLE},
+      first_price = #{record.firstPrice,jdbcType=DOUBLE},
+      leave_time = #{record.leaveTime,jdbcType=VARCHAR},
+      arrival_time = #{record.arrivalTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tds.manager.pojo.Flight" >
+    update flight
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="totleSeats != null" >
+        totle_seats = #{totleSeats,jdbcType=INTEGER},
+      </if>
+      <if test="leaveCity != null" >
+        leave_city = #{leaveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalCity != null" >
+        arrival_city = #{arrivalCity,jdbcType=VARCHAR},
+      </if>
+      <if test="economyPrice != null" >
+        economy_price = #{economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstPrice != null" >
+        first_price = #{firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tds.manager.pojo.Flight" >
+    update flight
+    set num = #{num,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      totle_seats = #{totleSeats,jdbcType=INTEGER},
+      leave_city = #{leaveCity,jdbcType=VARCHAR},
+      arrival_city = #{arrivalCity,jdbcType=VARCHAR},
+      economy_price = #{economyPrice,jdbcType=DOUBLE},
+      first_price = #{firstPrice,jdbcType=DOUBLE},
+      leave_time = #{leaveTime,jdbcType=VARCHAR},
+      arrival_time = #{arrivalTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

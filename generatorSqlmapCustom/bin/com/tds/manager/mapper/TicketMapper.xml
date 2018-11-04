@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tds.manager.mapper.TicketMapper" >
+  <resultMap id="BaseResultMap" type="com.tds.manager.pojo.Ticket" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="economy_num" property="economyNum" jdbcType="INTEGER" />
+    <result column="economy_price" property="economyPrice" jdbcType="DOUBLE" />
+    <result column="first_num" property="firstNum" jdbcType="INTEGER" />
+    <result column="first_price" property="firstPrice" jdbcType="DOUBLE" />
+    <result column="economy_release" property="economyRelease" jdbcType="INTEGER" />
+    <result column="first_release" property="firstRelease" jdbcType="INTEGER" />
+    <result column="economy_no" property="economyNo" jdbcType="INTEGER" />
+    <result column="first_no" property="firstNo" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fid, flag, economy_num, economy_price, first_num, first_price, economy_release, 
+    first_release, economy_no, first_no
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tds.manager.pojo.TicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ticket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ticket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tds.manager.pojo.TicketExample" >
+    delete from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tds.manager.pojo.Ticket" >
+    insert into ticket (id, fid, flag, 
+      economy_num, economy_price, first_num, 
+      first_price, economy_release, first_release, 
+      economy_no, first_no)
+    values (#{id,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, #{flag,jdbcType=INTEGER}, 
+      #{economyNum,jdbcType=INTEGER}, #{economyPrice,jdbcType=DOUBLE}, #{firstNum,jdbcType=INTEGER}, 
+      #{firstPrice,jdbcType=DOUBLE}, #{economyRelease,jdbcType=INTEGER}, #{firstRelease,jdbcType=INTEGER}, 
+      #{economyNo,jdbcType=INTEGER}, #{firstNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tds.manager.pojo.Ticket" >
+    insert into ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="economyNum != null" >
+        economy_num,
+      </if>
+      <if test="economyPrice != null" >
+        economy_price,
+      </if>
+      <if test="firstNum != null" >
+        first_num,
+      </if>
+      <if test="firstPrice != null" >
+        first_price,
+      </if>
+      <if test="economyRelease != null" >
+        economy_release,
+      </if>
+      <if test="firstRelease != null" >
+        first_release,
+      </if>
+      <if test="economyNo != null" >
+        economy_no,
+      </if>
+      <if test="firstNo != null" >
+        first_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="economyNum != null" >
+        #{economyNum,jdbcType=INTEGER},
+      </if>
+      <if test="economyPrice != null" >
+        #{economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstNum != null" >
+        #{firstNum,jdbcType=INTEGER},
+      </if>
+      <if test="firstPrice != null" >
+        #{firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="economyRelease != null" >
+        #{economyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="firstRelease != null" >
+        #{firstRelease,jdbcType=INTEGER},
+      </if>
+      <if test="economyNo != null" >
+        #{economyNo,jdbcType=INTEGER},
+      </if>
+      <if test="firstNo != null" >
+        #{firstNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tds.manager.pojo.TicketExample" resultType="java.lang.Integer" >
+    select count(*) from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ticket
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.economyNum != null" >
+        economy_num = #{record.economyNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.economyPrice != null" >
+        economy_price = #{record.economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstNum != null" >
+        first_num = #{record.firstNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstPrice != null" >
+        first_price = #{record.firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.economyRelease != null" >
+        economy_release = #{record.economyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstRelease != null" >
+        first_release = #{record.firstRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.economyNo != null" >
+        economy_no = #{record.economyNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstNo != null" >
+        first_no = #{record.firstNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ticket
+    set id = #{record.id,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      economy_num = #{record.economyNum,jdbcType=INTEGER},
+      economy_price = #{record.economyPrice,jdbcType=DOUBLE},
+      first_num = #{record.firstNum,jdbcType=INTEGER},
+      first_price = #{record.firstPrice,jdbcType=DOUBLE},
+      economy_release = #{record.economyRelease,jdbcType=INTEGER},
+      first_release = #{record.firstRelease,jdbcType=INTEGER},
+      economy_no = #{record.economyNo,jdbcType=INTEGER},
+      first_no = #{record.firstNo,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tds.manager.pojo.Ticket" >
+    update ticket
+    <set >
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="economyNum != null" >
+        economy_num = #{economyNum,jdbcType=INTEGER},
+      </if>
+      <if test="economyPrice != null" >
+        economy_price = #{economyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstNum != null" >
+        first_num = #{firstNum,jdbcType=INTEGER},
+      </if>
+      <if test="firstPrice != null" >
+        first_price = #{firstPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="economyRelease != null" >
+        economy_release = #{economyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="firstRelease != null" >
+        first_release = #{firstRelease,jdbcType=INTEGER},
+      </if>
+      <if test="economyNo != null" >
+        economy_no = #{economyNo,jdbcType=INTEGER},
+      </if>
+      <if test="firstNo != null" >
+        first_no = #{firstNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tds.manager.pojo.Ticket" >
+    update ticket
+    set fid = #{fid,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      economy_num = #{economyNum,jdbcType=INTEGER},
+      economy_price = #{economyPrice,jdbcType=DOUBLE},
+      first_num = #{firstNum,jdbcType=INTEGER},
+      first_price = #{firstPrice,jdbcType=DOUBLE},
+      economy_release = #{economyRelease,jdbcType=INTEGER},
+      first_release = #{firstRelease,jdbcType=INTEGER},
+      economy_no = #{economyNo,jdbcType=INTEGER},
+      first_no = #{firstNo,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

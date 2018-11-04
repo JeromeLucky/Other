@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+   
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="com.jerome.user.control"/>
+	<!-- 配置HandlerAdapter -->
+	<!-- 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/> 
+			spring5.0开始不需要配置适配器,已被废除
+	-->
+	<!-- 配置视图渲染器 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<!-- 将视图名渲染后视图的前缀 -->
+    	<property name="prefix" value="/WEB-INF/jsp/"/>
+    	<!-- 渲染后的视图后缀 -->
+    	<property name="suffix" value=".jsp"/>
+	</bean>
+	<!--配置拦截器  -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 
+				此处表示指定那些请求需要被拦截处理
+				/**处理所有路径的请求,并且包括子路径
+			 -->
+			<mvc:mapping path="/login.do"/>
+			<!-- 配置一个拦截器类 -->
+			<bean class="com.jerome.user.intercepter.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- javaBean -->
+<bean id="user" class="com.jerome.user.entity.User"/>
+
+	<!-- json的配置 -->
+	<!-- 用于将对象转化成JSON -->
+	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter"/>
+
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	
+     <!-- 配置HandlerAdapter -->
+	<!-- 用于将list转化成JSON -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+			<property name="messageConverters">
+				<list>
+					<ref bean="stringConverter"/>
+					<ref bean="jsonConverter"/>
+				</list>
+			</property>
+	</bean>
+
+
+</beans>

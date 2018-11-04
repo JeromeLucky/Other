@@ -1,0 +1,26 @@
+drop database  if exists shop;
+create database  shop;
+use shop;
+create table item(
+	id int primary key auto_increment,
+	
+	sessionid varchar(40) ,
+	goodsname varchar(20),
+	goodsid  varchar(20),
+	number double
+	)Engine=innoDB default  charset=utf8;
+	
+	create table good(
+	id int primary key auto_increment,
+	
+	goodsname varchar(20),
+	price float,
+	introduce varchar(50)
+	)Engine=innoDB default  charset=utf8;
+
+	create table  customer(
+			id int primary key auto_increment,
+			account  varchar(20),
+			password  varchar(20),
+			name varchar(20)
+	)Engine=innoDB default  charset=utf8;

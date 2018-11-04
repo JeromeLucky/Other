@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间,用于隔离sql语句 -->
+<mapper namespace="com.wlx.mappers.UserMappers">
+  
+	<resultMap type="User" id="UserResult">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="pwd" column="password"/>
+		<result property="age" column="age"/>
+		<association property="address" column="id" 
+		select="com.wlx.mappers.AddressMappers.findById"/>
+	</resultMap>
+  
+  	<select id="findUserAndAddress" parameterType="Integer" resultMap="UserResult">
+  		select * from user36 u36,address a36 where  u36.address=a36.id
+  		 and u36.id=#{id}
+  	</select>
+  
+  
+  
+
+</mapper>

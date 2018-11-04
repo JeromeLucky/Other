@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+   <package name="index" namespace="/index" extends="struts-default">
+ <interceptors>
+ 				<interceptor name="loginInterceptor" class="com.jerome.struts.logintest.interceptor.LoinInterceptor"></interceptor>
+ 				<interceptor-stack name="loginInterceptor_stack">
+ 						<interceptor-ref name="defaultStack"></interceptor-ref><!-- 调用底层的 所有拦截器 -->
+ 						<interceptor-ref name="loginInterceptor"></interceptor-ref><!-- 自定义的拦截器 -->
+ 				</interceptor-stack>
+ 		</interceptors>
+     <default-interceptor-ref name="loginInterceptor_stack"></default-interceptor-ref><!-- 配置struts2 默认执行该 拦截器栈 -->
+    
+
+ 		<!-- 配置测试用的 action 未于Spring整合的  class 写类的 全限定名-->
+ 		<action name="index" class="com.jerome.struts.logintest.action.IndexAction"  >
+ 					<result name="success" >/index.jsp</result>
+ 					<result name="input">/pages/error.jsp</result>
+ 					<result name="error">/pages/interceptor/login.jsp</result>
+ 		</action>
+ 
+    </package>
+   
+ 		<!-- 配置 手动验证 的action -->
+    <package name="login" namespace="/login" extends="struts-default">
+    			<action name="Login_login"  class="com.jerome.struts.logintest.action.LoginAction" method="login">
+    						<result name="success">/pages/interceptor/index.jsp</result>
+    						<result name="input">/pages/interceptor/login.jsp</result>
+    						<result name="error">/pages/interceptor/login.jsp</result>
+    			</action>
+    
+    </package>
+    <!--  -->
+     <package name="loginxml" namespace="/loginxml" extends="struts-default">
+    			<action name="LoginXml_login"  class="com.jerome.struts.logintest.action.LoginXmlAction" method="login">
+    						<result name="success">/pages/interceptor/index.jsp</result>
+    						<result name="input">/pages/interceptor/login.jsp</result>
+    						<result name="error">/pages/interceptor/login.jsp</result>
+    			</action>
+    
+    </package>
+    
+</struts>

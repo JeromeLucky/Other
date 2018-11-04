@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../../js/jquery-3.2.0.js"></script>
+		<script type="text/javascript">
+	
+		
+	    	function aa(){
+			     	   var bb=	$( "dd:eq(0)")[0].innerHTML;
+								  alert(bb);
+								  alert($("tr:eq(0)~tr").length);
+						 }			
+
+						$(function(){
+												//遍历
+											var dd=$("dl").find($("dd"));
+												alert(dd.length);
+													$.each(dd,function(index,a){
+																if(index==1){
+																		alert(a.innerHTML);
+																}
+													});
+													
+										//定时器
+										var num=0;
+									var i=	window.setInterval(function(){
+												var a=	num%2;
+													if(a==1){
+														   $("dd:contains(晴朗)").css({"background-color":"pink","color":"green"});
+														   
+														}else if(a==0){
+														
+															  $("dd:contains(晴朗)").css({"background-color":"blue","color":"red"});
+														}
+													$("dd:contains(微风)").toggleClass(function(){
+																				this.className="";
+																				if(a==1){
+																					return "one";
+																				}else if(a==0){
+																					return "two";
+																				}
+																});
+										     	num++;
+											},1000);
+												
+													
+													alert($(" tr:eq(1) td ").length);
+													$(" tr:eq(1) > td  ").mouseover(function(){
+															alert(this.innerText);
+														});
+													
+												   $("button[class=add]").click(function (){
+														$("tr:last").after($("<<tr><td>"+$('tr').length+"</td><td>bb</td><td>22</td><td>深圳</td></tr>"))	;		
+												});
+												   
+												   $("button[class=delet]").click(function (){
+													   $("tr:last").remove();		
+												});
+												   $("button[class=change]").click(function (){
+													   $("dd:contains(晴朗)").css({"background-color":"pink","color":"green"});
+												});
+												   
+												   
+											});
+				
+		</script>
+<style>
+			td ,th {
+						border:1px solid black;
+					} 
+					dd.one{
+						width:50px;
+						height:50px;
+						background-color:blue;
+						font-size:20px;
+						line-height:50px;
+						color:pink;
+					}
+					dd.two{
+					width:100px;
+					height:100px;
+					background-color:green;
+							font-size:50px;
+							line-height:100px;
+							color:red;
+							position:relative;
+							left:-30px;
+					}
+</style>
+
+</head>
+<body>
+			<dl>	
+						<dt onclick="aa()">天气</dt>
+						<dd >
+								多云
+						</dd>
+							<dd >
+								晴朗
+						</dd>
+							<dd class="one two">
+								微风
+						</dd>
+					
+			</dl>
+			<table  cellspacing="0">
+							<tr><th>编号</th><th>姓名</td><th>年龄</th><th>籍贯</th></tr>
+							<tr id="one"><td>1</td><td>aa</td><td>21</td><td>北京</td></tr>
+							<tr><td>2</td><td>bb</td><td>22</td><td>深圳</td></tr>
+			</table>
+			<div id="text"></div>
+			<button class="add" >新增</button><button class="delet">删除</button><button class="change">修改天气属性</button>
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd "
+	>
+	
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.jerome.ssh"></context:component-scan>
+	
+	  <!-- 导入外部的properties文件 -->
+	  <context:property-placeholder location="jdbc.properties"/>
+	  <!-- 数据源 -->
+    <bean id="dataSource"
+        class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--数据库链接信息  -->
+        <property name="driverClass" value="${driverClass}" />
+        <property name="jdbcUrl" value="${jdbcUrl}" />
+        <property name="user" value="${user}" />
+        <property name="password" value="${password}" />
+      <!-- 管理信息 -->
+      	<!-- 数据连接池初始值 取3个-->
+		<property name="initialPoolSize" value="3"></property>
+		<!-- 数据连接池最小值位3个 -->
+		<property name="minPoolSize" value="3"></property>
+		<!-- 数据连接池 最大连接数-->
+		<property name="maxPoolSize" value="15"></property>
+		<!-- 数据连接池 用完时 每次申请3个-->
+		<property name="acquireIncrement" value="3"></property>
+		<!-- 控制数据源加载的preparestatemnet数量 当maxStatement 与 maxPreparedStatement 为0时 关闭连接 -->
+		<property name="maxStatements" value="8"></property>
+		<!--  单个连接的最大缓存statement数-->
+		<property name="maxStatementsPerConnection" value="5"> </property>
+		<!-- 最大空闲时间 为1800秒 -->
+		<property name="maxIdleTime" value="1800"></property>
+    </bean>
+	
+	
+	<!--  事务管理器 -->
+	<!-- <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="source"/>
+		</property>
+	</bean>
+	使用事务注解
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/> -->
+	
+	  <!-- 配置声明事务管理器（注解 和 xml 方式） -->
+	  
+	  <!--  事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="source"/>
+		</property>
+	</bean>
+	<!-- 使用事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	  
+   <!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="ionFactory" ref="sessionFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>实物管理管理器的注解 -->
+	
+	<!-- 配置一个sessionFactory -->
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <!-- 制定hibernater配置文件路径 -->
+    					<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+    <!-- 配置C3P0连接池 -->
+    				 	<property name="dataSource" ref="dateSource"></property> <!--  引入配置文件,或写匿名的没有id的bean -->
+    </bean>
+
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+ 

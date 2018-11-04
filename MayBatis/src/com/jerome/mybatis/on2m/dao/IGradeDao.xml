@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jerome.mybatis.on2m.dao.IGradeDao"><!-- 命名空间  用于区分隔离 sql语句 指定的是要操作的 接口 -->
+  <resultMap type="com.jerome.mybatis.on2m.entity.Grade" id="gradeList">
+  				<id property="id" column="id"/><!-- 主键id -->
+  				<result property="name" column="name"/>
+  				<result property="manager" column="manager"/>
+  			   <association property="students" column="id" 
+				select="com.jerome.mybatis.on2m.dao.IStudentDao.findBygId"/>
+  </resultMap>
+  
+  	<!-- 配置Mybatis的二级缓存 -->
+	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="true" />
+	
+  <select id="findById" parameterType="Integer" resultMap="gradeList">
+			select * from grade where id=#{id}
+  </select>
+  	
+  	<!-- 使用 rowBounds 进行分页查询 -->
+  	<select id="findByPage1"  resultMap="gradeList" flushCache="false" useCache="true">
+  					select * from grade
+  	</select>
+  
+  <!-- mysql limit 查询 方式 -->
+		<select id="findByPage2" parameterType="Map" resultMap="gradeList">
+		select * from grade
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+  
+  </mapper>

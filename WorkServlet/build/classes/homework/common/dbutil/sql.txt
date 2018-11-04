@@ -1,0 +1,86 @@
+drop database if exists xml;
+create database xml;
+use xml;
+create table element(
+		id  int primary key,
+		name varchar(20)
+		)Engine=InnoDB default charset=utf8;
+	
+		insert into element values(1,"welcome-file-list");
+		insert into element values(2,"filter");
+		insert into element values(3,"filter-mapping");
+		insert into element values(4,"servlet");
+		insert into element values(5,"servlet-mapping");
+		insert into element values(6,"listener");
+create table elementchild(
+		id  int primary key ,
+		name varchar(20),
+		ectext varchar(40),
+		ecid int 
+		)Engine=InnoDB default charset=utf8;		
+		
+		insert into elementchild values(1,"welcome-file","one.jsp",1);
+		insert into elementchild values(2,"filter-name","aafilter",2);
+		insert into elementchild values(3,"filter-class","com.bwf.jia.AAfilter",2);
+		insert into elementchild values(4,"filter-name","aafilter",3);
+		insert into elementchild values(5,"url-pattern","/aa/*",3);
+		insert into elementchild values(6,"servlet-name","aafilter",4);
+		insert into elementchild values(7,"servlet-class","com.bwf.jia.AAfilter",4);
+		insert into elementchild values(8,"servlet-name","aafilter",5);
+		insert into elementchild values(9,"servlet-pattern","/aa/bb",5);
+		insert into elementchild values(10,"listener-class","com.bwf.jia.AAlistener",6);
+create table htmlElementp(
+		id int primary key,
+		elpname varchar(40),
+		paraname varchar(40),
+		paravalue varchar(40)
+		
+	)Engine=InnoDB default charset=utf8;
+		insert into htmlelementp values(1,"head","","");
+		insert into htmlelementp values(2,"body","class","body1");
+create table htmlElementc(
+		id int primary key,
+		elcname varchar(40),
+		paraname varchar(40),
+		paravalue varchar(40),
+		pid  int 
+
+	)Engine=InnoDB default charset=utf8;		
+	insert into htmlelementc values(1,"form","id","form1",2);
+
+drop database  if  exists stusers;
+create database stusers;
+use stusers;
+create table  user(
+	id int primary key auto_increment,
+	userId  varchar(20),
+	password varchar(20),
+	userName varchar(20)
+	)Engine=InnoDB  default charset=utf8;
+	
+create table manger(
+	id int primary key auto_increment,
+	userId  varchar(20),
+	password varchar(20),
+	userName varchar(20)
+	)Engine=InnoDB  default charset=utf8;
+	
+create table users(
+	id int primary key auto_increment,
+	stuId  varchar(20),
+	stuName varchar(20),
+	infoId  varchar(20),	
+	major  varchar(20),
+	school  varchar(20)
+	)Engine=InnoDB  default charset=utf8;
+	
+create table info(
+	id int primary key auto_increment,
+	value  varchar(40)
+	)Engine=InnoDB  default charset=utf8;
+	
+insert into info (value) value ("java"); 
+insert into info (value) value ("java se"); 
+insert into info (value) value ("java web"); 
+
+

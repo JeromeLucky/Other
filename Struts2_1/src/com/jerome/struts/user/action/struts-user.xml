@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <package name="action" namespace="/action" extends="struts-default">
+ 		<!-- 配置测试用的 action 未于Spring整合的  class 写类的 全限定名-->
+ 		<action name="test1" class="com.jerome.struts.user.service.AddUser"  method="">
+ 					<result name="success" type="redirectAction">
+ 								<param name="actionName">test2</param>
+ 								<param name="nameSpace">/action</param>
+ 					</result>
+ 		</action>
+ 		<action name="test2" class="com.jerome.struts.user.service.DeleUser"  method="">
+ 					<result name="success">/pages/test.jsp</result>
+ 		</action>
+    </package>
+
+</struts>

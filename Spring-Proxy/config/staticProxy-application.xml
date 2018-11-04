@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		bean就是Java对象,该Java对象由spring容器创建管理的
+		id是spring的bean标识符,要求唯一,如果没有配置id,
+		配置bean的name属性也可以,id和name可以同时出现,如果同时
+		出现了,那么name就表示bean的别名,别名可以通过空格、逗号、分号进行分隔
+		配置多个别名。
+		bean的class会自动加载并执行指定类的无参数的构造方法
+		property一般用于为指定bean类中的属性赋值 
+        name表示bean类中的属性的set之后的方法名,
+        第一个字母小写或和set之后的名字一致,推荐第一个
+        字母小写
+        value表示为当前属性赋的值
+        赋值时是调用bean类中属性的set***()方法
+	 -->
+   
+
+
+</beans>

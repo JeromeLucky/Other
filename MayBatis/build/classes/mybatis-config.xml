@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+	  
+<configuration>
+  <!-- 导入外部的properties文件 -->
+<properties resource="jdbc.properties"/>
+<!-- 指定类型查询位置 -->
+<!-- <typeAliases>
+		<package name="com.jerome.mybatis.manager.entity"/>
+</typeAliases> -->
+    <environments default="development">
+        <environment id="development">
+        
+            <transactionManager type="JDBC">
+               <property name="" value=""/>
+            </transactionManager>
+            
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="${driverClass}"/>
+                <property name="url" value="${jdbcUrl}"/>
+                <property name="username" value="${user}"/>
+                 <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+   <!--  <mappers>
+        <mapper resource="com/jerome/mybatis/user/dao/UserMapper.xml"/>
+    </mappers>
+ -->
+ <!-- 指定mapper 检索位置 -->
+ <mappers>
+ 		<package name="com.jerome.mybatis.on2m.dao"/>
+ </mappers>
+</configuration>

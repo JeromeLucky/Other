@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+     xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                  http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+                  http://www.springframework.org/schema/context  
+                  http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+                  http://www.springframework.org/schema/aop   
+                  http://www.springframework.org/schema/aop/spring-aop.xsd        
+                 http://www.springframework.org/schema/tx   
+                 http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"> 
+	
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.jerome.ssh"></context:component-scan>
+	
+	  <!-- 导入外部的properties文件 -->
+	 
+	  <!--< context:property-placeholder location="jdbc.properties"/> -->
+	<!-- 配置c3p0代替hibernate核心配置文件中的数据源配置 -->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+				<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/p2p" />
+			<property name="user" value="root" />
+			<property name="password" value="123456" />
+	 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/p2p"/>
+		<property name="username" value="root"/>
+		<property name="password" value="123456"/>
+		
+	</bean>
+	
+	<!-- hibernate的sessionFactory交给spring创建 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 由于hibernate的核心配置文件没有数据源的配置，这里需要配置 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- sessionFaction的创建需要读取hibernate的核心配置文件 -->
+		<property name="configLocations" value="classpath:hibernate.cfg.xml"></property>
+		
+		<!-- <property name="mappingLocations" value="classpath:com/Lily/domain/*.hbm.xml"></property> -->
+	</bean>
+	
+	<!-- 配置hibernateTemplate用于操作数据（spring对hibernate操作数据的封装） -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<!-- hibernateTemplate的有参构造需要传入sessionFactory对象-->
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<!-- 事务中需要指定所要操作的数据库信息，数据源，这里可以配置sessionFactory，里面包含了DataSource -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 开起事务管理器注解扫描 （指定事务管理器）-->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+	
+		<!-- 配置事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+        	<!-- 配置那些方法使用什么样的事务,配置事务的传播性 -->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="*" read-only="true"/>
+           
+        </tx:attributes>
+    </tx:advice>
+    
+    <!-- 配置事务切面 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.jerome.ssh.user.service.*.*(..))"  id="pointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+	</aop:config>
+	<!-- 声明式事务配置_结束 -->
+	
+	<!-- UserDao的bean配置 -->
+	<bean id="userDao" class="com.jerome.ssh.user.dao.UserDao"></bean>
+	<!-- UserService的bean配置 -->	
+	<bean id="userService" class="com.jerome.ssh.user.service.UserService">
+		<!-- 注入UserDao -->
+		<property name="userDao" ref="userDao" />
+	</bean>	
+ 
+	<!-- 配置struts的action创建 -->
+	<bean id="userAction" class="com.jerome.ssh.user.action.UserAction" scope="prototype">
+		<!-- 注入UserService -->
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false" package="com.jerome.ssh.user.entity">
+
+	<class
+		name="User"
+		table="User_table">
+
+	   <id name="id" > <!-- 类型叫它自动检测 -->
+			<generator class="native"></generator>
+      </id>
+		<!-- <discriminator column="PersonType" type="string"></discriminator>	 -->
+		<property name="name" ></property>
+		<property name="age" ></property>
+		<!-- <subclass name="" discriminator-value="" proxy=""></subclass> -->
+	</class>
+
+</hibernate-mapping>
+
